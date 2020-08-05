@@ -56,6 +56,11 @@ namespace RtMidi.Core.Devices
         /// SysEx data message event.
         /// </summary>
         event SysExMessageHandler SysEx;
+
+        /// <summary>
+        /// System Real-Time message event.
+        /// </summary>
+        event SystemRealTimeMessageHandler SystemRealTime;
     }
 
     public delegate void NoteOffMessageHandler(IMidiInputDevice sender, in NoteOffMessage msg);
@@ -75,4 +80,6 @@ namespace RtMidi.Core.Devices
     public delegate void NrpnMessageHandler(IMidiInputDevice sender, in NrpnMessage msg);
 
     public delegate void SysExMessageHandler(IMidiInputDevice sender, in SysExMessage msg);
+
+    public delegate void SystemRealTimeMessageHandler(IMidiInputDevice sender, in SystemRealTimeMessage msg);
 }

@@ -39,5 +39,8 @@ namespace RtMidi.Core.Devices
         
         public bool Send(in SysExMessage sysExMessage)
             => _outputDevice.SendMessage(sysExMessage.Encode());
+
+        public bool Send(in SystemRealTimeMessage systemRealTimeMessage)
+            => _outputDevice.SendMessage(systemRealTimeMessage.Encode());
     }
 }

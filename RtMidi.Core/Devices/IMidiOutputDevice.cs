@@ -66,5 +66,12 @@ namespace RtMidi.Core.Devices
         /// <param name="sysExMessage"></param>
         /// <returns>True if sent, false otherwise</returns>
         bool Send(in SysExMessage sysExMessage);
+
+        /// <summary>
+        /// Send System Real-Time message
+        /// </summary>
+        /// <param name="systemRealTimeMessage"></param>
+        /// <returns></returns>
+        bool Send(in SystemRealTimeMessage systemRealTimeMessage);
     }
 }

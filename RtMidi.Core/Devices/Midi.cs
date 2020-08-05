@@ -27,6 +27,7 @@
             internal const byte System = 0b1111_0000;
             internal const byte SysExStart = 0b1111_0000;
             internal const byte SysExEnd = 0b1111_0111;
+            internal const byte SystemRealTimeBitmask = 0b1111_1000;
         }
     }
 }

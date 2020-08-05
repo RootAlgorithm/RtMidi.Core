@@ -36,6 +36,7 @@ namespace RtMidi.Core.Devices
         public event PitchBendMessageHandler PitchBend;
         public event NrpnMessageHandler Nrpn;
         public event SysExMessageHandler SysEx;
+        public event SystemRealTimeMessageHandler SystemRealTime;
 
         private void RtMidiInputDevice_Message(object sender, byte[] message)
         {
@@ -66,7 +67,7 @@ namespace RtMidi.Core.Devices
         private void Decode(byte[] message)
         {
             byte status = message[0];
-            switch (status & 0b1111_0000)
+            switch (status & 0b1111_1000)
             {
                 case Midi.Status.NoteOffBitmask:
                     if (NoteOffMessage.TryDecode(message, out var noteOffMessage))
@@ -110,7 +111,12 @@ namespace RtMidi.Core.Devices
                             break;
                     }
                     break;
-                
+
+                case Midi.Status.SystemRealTimeBitmask:
+                    if (SystemRealTimeMessage.TryDecode(message[0], out var systemRealTimeMessage))
+                        SystemRealTime?.Invoke(this, in systemRealTimeMessage);
+                    break;
+
                 default:
                     Log.Error("Unknown message type {Bitmask}", $"{status & 0b1111_0000:X2}");
                     break;
@@ -130,6 +136,7 @@ namespace RtMidi.Core.Devices
             ChannelPressure = null;
             PitchBend = null;
             SysEx = null;
+            SystemRealTime = null;
         }
 
         private void OnControlChange(in ControlChangeMessage e)
